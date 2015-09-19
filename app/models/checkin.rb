@@ -18,11 +18,11 @@
 
 class Checkin < ActiveRecord::Base
 	validates :name, presence: true
-	validates :badge_id, presence: true, allow_blank: false, if: "is_student == true"
-	validates :child_name, presence: true, allow_blank: false, if: "is_student == false"
-	validates :reason, presence: true, if: "custom_reason == false"
-	validates :reason_text, presence: true, allow_blank: false, if: "custom_reason == true"
-	validates :user, presence: true, allow_nil: false
+	validates :badge_id, presence: true, allow_blank: false,allow_nil: false, if: "is_student == true"
+	validates :child_name, presence: true, allow_blank: false,allow_nil: false, if: "is_student == false"
+	validates :reason, presence: true,allow_nil: false, if: "custom_reason == false"
+	validates :reason_text, presence: true, allow_blank: false,allow_nil: false, if: "custom_reason == true"
+	validates :user, presence: true, allow_nil: false, allow_blank: false
 
 	belongs_to :reason
 	belongs_to :school

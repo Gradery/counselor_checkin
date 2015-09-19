@@ -12,5 +12,6 @@
 
 class Setting < ActiveRecord::Base
 	belongs_to :school
-   	validates :school, :key, :value, presence: true
+   	validates :school, :key, :value, presence: true, allow_nil: false, allow_blank: false
+
 end

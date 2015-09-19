@@ -13,36 +13,27 @@
 require 'rails_helper'
 
 RSpec.describe Setting, type: :model do
-  before(:all) do
-    @s = FactoryGirl.create(:school)
-  end
 
   it "will not create a Setting without a school" do
-  	a = Setting.new
-  	a.key = "key"
-  	a.value = "val"
+  	a = FactoryGirl.build(:setting)
+  	a.school = nil
   	expect(a.valid?).to eq false
   end
 
   it "will not create a Setting without a key" do
-  	a = Setting.new
-  	a.school = @s
-  	a.value = "val"
+  	a = FactoryGirl.build(:setting)
+  	a.key = nil
   	expect(a.valid?).to eq false
   end
 
   it "will not create a Setting without a value" do
-  	a = Setting.new
-  	a.school = @s
-  	a.key = "key"
+  	a = FactoryGirl.build(:setting)
+  	a.value = nil
   	expect(a.valid?).to eq false
   end
 
   it "will create a Setting with required fields" do
-  	a = Setting.new
-  	a.school = @s
-  	a.key = "key"
-  	a.value = "val"
+  	a = FactoryGirl.build(:setting)
   	expect(a.valid?).to eq true
   end
 end

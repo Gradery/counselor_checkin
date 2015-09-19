@@ -23,73 +23,45 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before(:all) do
-    @s = FactoryGirl.create(:school)
-  end
 
   it "will not create a User without a password" do
-  	a = User.new
-  	a.email = "test@email.com"
-    a.name = "asdf"
-    a.school = @s
-    a.is_admin = false
+  	a = FactoryGirl.build(:user)
+    a.password = nil
   	expect(a.valid?).to eq false
   end
 
   it "will not create a User with a password less than 8 characters" do
-  	a = User.new
-  	a.email = "test@email.com"
-  	a.password = "1234567"
-    a.name = "asdf"
-    a.school = @s
-    a.is_admin = false
+  	a = FactoryGirl.create(:user)
+    a.password = "1234567"
   	expect(a.valid?).to eq false
   end
 
   it "will not create a User without an email" do
-  	a = User.new
-  	a.password = "something"
-    a.name = "asdf"
-    a.school = @s
-    a.is_admin = false
+  	a = FactoryGirl.create(:user)
+    a.email = nil
   	expect(a.valid?).to eq false
   end
 
   it "will not create a User without a valid email structure" do
-  	a = User.new
-  	a.password = "something"
-  	a.email = "not-an-email"
-    a.name = "asdf"
-    a.school = @s
-    a.is_admin = false
+  	a = FactoryGirl.create(:user)
+    a.email = "sdfsdfs"
   	expect(a.valid?).to eq false
   end
 
   it "will not create a User without a name" do
-    a = User.new
-    a.password = "something"
-    a.email = "test@email.com"
-    a.school = @s
-    a.is_admin = false
+    a = FactoryGirl.create(:user)
+    a.name = nil
     expect(a.valid?).to eq false
   end
 
   it "will not create a User without a school" do
-    a = User.new
-    a.password = "something"
-    a.email = "test@email.com"
-    a.name = "name"
-    a.is_admin = false
+    a = FactoryGirl.create(:user)
+    a.school = nil
     expect(a.valid?).to eq false
   end
 
   it "will create a User with valid fields" do
-  	a = User.new
-  	a.password = "12345678"
-  	a.email = "test@email.com"
-    a.name = "name"
-    a.school = @s
-    a.is_admin = false
+  	a = FactoryGirl.create(:user)
   	expect(a.valid?).to eq true
   end
 

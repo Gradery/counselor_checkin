@@ -25,9 +25,9 @@ require 'faker'
 FactoryGirl.define do
   factory :user do
   	school
-  	email Faker::Internet.email
-  	password Faker::Internet.password
-  	name Faker::Name.name
+  	email {Faker::Internet.email}
+  	password {Faker::Internet.password}
+  	name {Faker::Name.name}
   	is_admin false
   end
 end
