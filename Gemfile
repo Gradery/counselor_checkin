@@ -47,6 +47,8 @@ gem 'annotate'
 group :development, :test do
   	# Mock model data with Factory_Girl
   	gem 'factory_girl_rails'
+  	# Fuzz and generate random fake data
+  	gem 'faker'
   	# run tests with RSpec
   	gem 'rspec-rails', '~> 3.0'
 end
