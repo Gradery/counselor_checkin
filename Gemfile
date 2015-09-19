@@ -44,6 +44,11 @@ gem "awesome_print"
 # annotate puts comments on the schema of the models
 gem 'annotate'
 
+group :development do
+	# Guard runs rspec on file changes
+	gem 'guard-rspec', require: false
+end
+
 group :development, :test do
   	# Mock model data with Factory_Girl
   	gem 'factory_girl_rails'
