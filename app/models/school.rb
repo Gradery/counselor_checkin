@@ -11,6 +11,8 @@
 class School < ActiveRecord::Base
 	has_many :settings
 	has_many :users
+	has_many :reasons
+	has_many :checkins
 
 	validates :name, presence: true
 end
