@@ -52,3 +52,6 @@ group :development, :test do
   	# run tests with RSpec
   	gem 'rspec-rails', '~> 3.0'
 end
+
+# CodeClimate test reporting
+gem "codeclimate-test-reporter", group: :test, require: nil
