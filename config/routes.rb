@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'pages#index'
 
+  post "/api/checkin" => "api#add_checkin"
+
   get "/:school" => "pages#checkin"
   get "/:school/admin" => "pages#admin"
 

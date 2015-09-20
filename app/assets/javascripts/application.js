@@ -55,20 +55,33 @@ $(document).ready(function(){
 		var name = $("#name").val();
 		var visiting = $("#visiting").val();
 		var reason = $("#reason").val();
+		if (reason === "other")
+			var custom_reason = true;
+		else
+			var custom_reason = false;
+		var custom_reason_text = $("#other-text").val();
 		if (user_type == "student"){
 			var badge = $("#badge").val();
 			if (name === "" || visiting === "" || reason === "" || badge === "")
 				toastr.error("All Fields Are Required");
 			else{
-				$.post("/checkin",{
+				$.post("/api/checkin",{
 					name: name,
 					user_id: visiting,
 					reason_id: reason,
 					user_type: user_type,
-					badge_id: badge
+					badge_id: badge,
+					custom_reason: custom_reason,
+					custom_reason_text: custom_reason_text,
+					school: window.location.pathname.replace("/","")
 				})
 				.success(function(data){
 					console.log(data);
+					//reset the form
+					toastr.success("You are checked in!");
+					setTimeout(function(){
+						location.reload();
+					}, 5000);
 				})
 				.error(function(error){
 					toastr.error("ERROR!");
@@ -80,18 +93,27 @@ $(document).ready(function(){
 			if (name === "" || visiting === "" || reason === "" || student_name === "")
 				toastr.error("All Fields Are Required");
 			else{
-				$.post("/checkin",{
+				$.post("/api/checkin",{
 					name: name,
 					user_id: visiting,
 					reason_id: reason,
 					user_type: user_type,
-					student_name: student_name
+					student_name: student_name,
+					custom_reason: custom_reason,
+					custom_reason_text: custom_reason_text,
+					school: window.location.pathname.replace("/","")
 				})
 				.success(function(data){
 					console.log(data);
+					//reset the form
+					toastr.success("You are checked in!");
+					setTimeout(function(){
+						location.reload();
+					}, 5000);
 				})
 				.error(function(error){
-					toastr.error("ERROR!");
+					toastr.error("ERROR: ");
+					//TODO: make this show the actual errors
 				});
 			}
 		}
