@@ -1,0 +1,64 @@
+<div class="row">
+	<center>
+		<h2><%= @school.name %></h2>
+		<h3>Counselor Checkin</h3><br/>
+	</center>
+</div>
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-4">
+		<b>I am a &nbsp;</b>
+		<div class="radio-inline">
+		  <label><input type="radio" name="optradio" value="student">Student</label>
+		</div>
+		<div class="radio-inline">
+		  <label><input type="radio" name="optradio" value="parent">Parent</label>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-4">
+		<label for="name">Name</label>
+		<input type="text" id="name" name="name" class="form-control" />
+	</div>
+</div>
+<div class="row" id="student-questions" style="display: none">
+	<div class="col-sm-4 col-sm-offset-4">
+		<label for="badge">Badge ID</label>
+		<input type="text" id="badge" name="badge" class="form-control" />
+	</div>
+</div>
+<div class="row" id="parent-questions" style="display: none">
+	<div class="col-sm-4 col-sm-offset-4">
+		<label for="student-name">Student's Name</label>
+		<input type="text" id="student-name" name="student-name" class="form-control" />
+	</div>
+</div>
+<div class="row other-questions" style="display: none">
+	<div class="col-sm-4 col-sm-offset-4">
+		<label for="visiting">I'm here to see</label>
+		<select class="form-control" name="visiting" id="visiting">
+			<option value=""></option>
+			<% @counselors.each do |counselor| %>
+				<option value="<%= counselor.id %>"><%= counselor.honorific + " " + counselor.name %></option>
+			<% end %>
+		</select>
+	</div>
+</div>
+<div class="row other-questions" style="display: none">
+	<div class="col-sm-4 col-sm-offset-4">
+		<label for="reason">About</label>
+		<select class="form-control" name="reason" id="reason">
+			<option value=""></option>
+			<% @reasons.each do |reason| %>
+				<option value="<%= reason.id %>"><%= reason.text %></option>
+			<% end %>
+			<option value="other">Other<other>
+		</select>
+		<textarea id="other-text" class="form-control" placeholder="Describe why you are visiting us today" style="display:none"></textarea>
+	</div>
+</div>
+<div class="row other-questions" style="display: none">
+	<div class="col-sm-4 col-sm-offset-4">
+		<button class="btn btn-primary form-control" id="checkin-submit">Check In</button>
+	</div>
+</div>

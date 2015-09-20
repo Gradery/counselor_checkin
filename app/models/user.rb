@@ -18,6 +18,7 @@
 #  name                   :string(255)
 #  is_admin               :boolean
 #  school_id              :string(255)
+#  honorific              :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
    belongs_to :school
-   validates :school, :name, presence: true
+   validates :school, :name, :honorific, presence: true, allow_nil: false, allow_blank: false
 
    has_many :checkins
 end

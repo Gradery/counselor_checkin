@@ -18,6 +18,7 @@
 #  name                   :string(255)
 #  is_admin               :boolean
 #  school_id              :string(255)
+#  honorific              :string(255)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
@@ -29,5 +30,6 @@ FactoryGirl.define do
   	password {Faker::Internet.password}
   	name {Faker::Name.name}
   	is_admin false
+  	honorific "Mr."
   end
 end

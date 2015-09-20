@@ -18,6 +18,7 @@
 #  name                   :string(255)
 #  is_admin               :boolean
 #  school_id              :string(255)
+#  honorific              :string(255)
 #
 
 require 'rails_helper'
@@ -57,6 +58,12 @@ RSpec.describe User, type: :model do
   it "will not create a User without a school" do
     a = FactoryGirl.create(:user)
     a.school = nil
+    expect(a.valid?).to eq false
+  end
+
+  it "will not create a User without an honorific" do
+    a = FactoryGirl.create(:user)
+    a.honorific = nil
     expect(a.valid?).to eq false
   end
 

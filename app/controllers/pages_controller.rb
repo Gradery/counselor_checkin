@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
 	def index
-
+		@schools = School.all
 	end
 
 	def checkin
@@ -9,6 +9,8 @@ class PagesController < ApplicationController
 		if @school.nil?
 			render status: 404
 		end
+		@counselors = User.where(:school => @school).all
+		@reasons = Reason.where(:school => @school).all
 	end
 
 	def admin

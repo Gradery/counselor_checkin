@@ -1,1 +1,9 @@
-<h1>Index Page</h1>
+<center>
+	<h1>Counselor Checkin App</h1>
+	Select your school from the list below to check in
+	<div>
+		<% @schools.each do |school| %>
+			<a href="/<%= school.url %>"><%= school.name %></a><br/> 
+		<% end %>
+	</div>
+</center>
