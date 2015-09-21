@@ -67,5 +67,10 @@ group :development, :test do
   	gem 'rspec-rails', '~> 3.0'
 end
 
+group :production do
+	# run on Passenger
+	gem 'passenger'
+end
+
 # CodeClimate test reporting
 gem "codeclimate-test-reporter", group: :test, require: nil
