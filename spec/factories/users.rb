@@ -27,7 +27,7 @@ FactoryGirl.define do
   factory :user do
   	school
   	email {Faker::Internet.email}
-  	password {Faker::Internet.password}
+  	password "12345678"
   	name {Faker::Name.name}
   	is_admin false
   	honorific "Mr."
