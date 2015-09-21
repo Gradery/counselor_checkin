@@ -1,0 +1,134 @@
+<div class="row">
+  <a href="/users/edit" class="btn btn-success pull-right">My Profile</a>
+</div>
+<div class="row">
+  <br/><br/>
+  <% if current_user.is_admin == true %>
+  <div class="btn-group pull-right" data-toggle="buttons">
+    <label class="btn btn-primary active">
+      <input type="radio" name="options" id="checkins_btn" autocomplete="off" checked>Checkins
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" name="options" id="settings_btn" autocomplete="off">Settings
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" name="options" id="users_btn" autocomplete="off">Users
+    </label>
+  </div>
+  <% end %>
+
+  <div id="checkins" style="display:none">
+    <table class="table table-striped">
+      <thead>
+        <th>Type</th>
+        <th>Name</th> 
+        <th>Visting</th>
+        <th>Reason</th>
+        <th>Student Badge ID</th>
+        <th>Child Name</th>
+        <th>Check in Time</th>
+      </thead>
+      <tbody>
+        <% @checkins.each do |checkin| %>
+          <tr>
+            <td><%= checkin.name %></td>
+            <td><%= checkin.is_student ? "Student" : "Parent" %></td>
+            <td><%= checkin.user.name %></td>
+            <td>
+              <%= checkin.custom_reason ? checkin.reason_text : checkin.reason.text %>
+            </td>
+            <td><%= checkin.is_student ? checkin.badge_id : "" %></td>
+            <td><%= checkin.is_student ? "" : checkin.child_name %></td>
+            <td><%= checkin.created_at.strftime("%m/%d/%y %I:%M %p")%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% if current_user.is_admin == true %>
+  <div id="settings" style="display:none">
+    <h4>Reasons</h4>
+    <table class="table table-striped">
+      <thead>
+        <th>Text</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% @reasons.each do |reason| %>
+          <tr>
+            <td><a href="#" id="text_<%= reason.id %>" class="editable" data-type="textarea" data-resource="reason" data-name="textarea" data-url="/api/reasons/<%= reason.id %>" data-original-title="Enter Reason Text"><%= reason.text %></a></td>
+            <td>
+              <button class="btn btn-danger delete_reason pull-right" id="delete_<%= reason.id %>">X</button>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>
+            <input type="text" class="form-control" id="reason_text" placeholder = "New Reason"/>
+          </td>
+          <td>
+            <button class="btn btn-primary pull-right" id="new_reason">Add Reason</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="users" style="display:none">
+    <table class="table table-striped">
+      <thead>
+        <th>Title</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><a href="#" id="title_<%= user.id%>" class="editable-title" data-type="select" data-url="/api/users/<%= user.id %>" data-title="Select Title" data-resource="user" data-name="honorific"><%= user.honorific %></a></td>
+            <td><a href="#" id="name_<%= user.id%>" class="editable" data-type="text" data-url="/api/users/<%= user.id %>" data-title="Name" data-resource="user" data-name="name"><%= user.name %></a></td>
+            <td>
+              <% if current_user.id != user.id %>
+                <a href="#" id="_<%= user.id%>" class="editable-is-admin" data-type="select" data-url="/api/users/<%= user.id %>" data-title="Role" data-resource="user" data-name="is_admin"><%= user.is_admin ? "Admin" : "User" %></a>
+              <% else %>
+                <%= user.is_admin ? "Admin" : "User" %>
+              <% end %>
+            </td>
+            <td><a href="#" id="title_<%= user.id%>" class="editable" data-type="text" data-url="/api/users/<%= user.id %>" data-title="Select Title" data-resource="user" data-name="email"><%= user.email %></a></td>
+            <td>
+              <button class="btn btn-danger delete_user pull-right" id="delete_<%= user.id %>">X</button>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>
+            <select class ="form-control" id="honorific">
+              <option value="">Title</option>
+              <option value="Dr.">Dr.</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Ms.">Ms.</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="form-control" placeholder="Name" id="name" />
+          </td>
+          <td>
+            <select class ="form-control" id="role">
+              <option value="">Role</option>
+              <option value="true">Admin</option>
+              <option value="false">User</option>
+            </select>
+          </td>
+          <td>
+            <input type="email" placeholder = "Email" id="email" class="form-control" />
+          </td>
+          <td>
+            <button class="btn btn-primary pull-right" id="new_user">Add User</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
+</div>

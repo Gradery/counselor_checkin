@@ -10,6 +10,14 @@ Rails.application.routes.draw do
 
   post "/api/checkin" => "api#add_checkin"
 
+  post "/api/reasons" => "api#add_reason"
+  put "/api/reasons/:id" => "api#update_reason"
+  post "/api/reasons/:id/delete" => "api#delete_reason"
+
+  post "/api/users" => "api#add_user"
+  put "/api/users/:id" => "api#update_user"
+  post "/api/users/:id/delete" => "api#delete_user"
+
   get "/:school" => "pages#checkin"
   get "/:school/admin" => "pages#admin"
 

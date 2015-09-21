@@ -1,3 +1,16 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "toastr";
+@import "bootstrap-editable";
+
+// .editable-container{
+// 	width: 100% !important;
+// 	.control-group, .editable-input, .edit_box{
+// 		width: 100% !important;
+// 	}
+// }
+
+.editable{
+	border-bottom: 0px solid black !important;
+	color: black;
+}

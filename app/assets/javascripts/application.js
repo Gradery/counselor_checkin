@@ -15,6 +15,8 @@
 //= require bootstrap
 //= require turbolinks
 //= require toastr
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
 //= require_tree .
 
 var user_type = "";
@@ -119,4 +121,161 @@ $(document).ready(function(){
 		}
 	});
 
+	//ADMIN PAGE FUNCTIONS
+	$("label.btn").click(function(e){
+		//propogate the click even down to the child element defined below
+		$(e.currentTarget).children()[0].click();
+	});
+	$("#checkins_btn").click(function(){
+		showCheckinsPage();
+	});
+	$("#settings_btn").click(function(){
+		showSettingsPage();
+	});
+	$("#users_btn").click(function(){
+		showUsersPage();
+	});
+
+
+	// SETTINGS SUB-PAGE functions
+	$("#new_reason").click(function(){
+		if ($("#reason_text").val() !== "")
+		{
+			$.post("/api/reasons",{
+				text: $("#reason_text").val(),
+				school: window.location.pathname.replace("/","").split("/")[0]
+			})
+			.success(function(data){
+				//reload the page
+				window.location = window.location.pathname + "?page=settings";
+			})
+			.error(function(error){
+				console.log(error);
+			})
+		}
+		else
+			toastr.error("You must fill out the New Reason field");
+	});
+
+	$(".delete_reason").click(function(e){
+		confirm("Are you sure you want to remove this reason?");
+		var id = $(e.currentTarget).attr("id").split("_")[1];
+		console.log(id);
+		$.post("/api/reasons/"+id+"/delete")
+		.success(function(){
+			window.location = window.location.pathname + "?page=settings";
+		})
+		.error(function(){
+			toastr.error("Couln't delete the reason. Please try again later");
+		});
+	});
+
+	$("#new_user").click(function(){
+		if ($("#honorific").val() !== "" && $("#name").val() !== "" && $("#role").val() !== "" && $("#email").val() !== "")
+		{
+			$.post("/api/users",{
+				honorific: $("#honorific").val(),
+				name: $("#name").val(),
+				is_admin: $("#role").val(),
+				email: $("#email").val(),
+				school: window.location.pathname.replace("/","").split("/")[0]
+			})
+			.success(function(data){
+				//reload the page
+				window.location = window.location.pathname + "?page=users";
+			})
+			.error(function(error){
+				console.log(error);
+			})
+		}
+		else
+			toastr.error("All Fields Are Required");
+	});
+
+	$(".delete_user").click(function(e){
+		confirm("Are you sure you want to remove this user?");
+		var id = $(e.currentTarget).attr("id").split("_")[1];
+		console.log(id);
+		$.post("/api/users/"+id+"/delete")
+		.success(function(){
+			window.location = window.location.pathname + "?page=users";
+		})
+		.error(function(){
+			toastr.error("Couln't delete the user. Please try again later");
+		});
+	});
+
+	if (window.location.pathname.split("/")[2] == "admin"){ //on the admin page
+		$("#checkins").show();
+		//see if we need to set a different page, and set the page
+		if (QueryString.page !== undefined){
+			var page = QueryString.page
+			if (page === "settings")
+				$("#settings_btn").click();
+			else if (page === "users")
+				$("#users_btn").click();
+			else
+				$("#checkins_btn").click();
+		}
+		else
+			$("#checkins_btn").click();
+	}
+	$.fn.editable.defaults.mode = 'inline';
+    $('.editable').editable();
+    $('.editable-title').editable({  
+        source: [
+              {value: "Dr.", text: 'Dr.'},
+              {value: "Mr.", text: 'Mr.'},
+              {value: "Mrs.", text: 'Mrs.'},
+              {value: "Ms.", text: 'Ms.'}
+           ]
+    });
+    $('.editable-is-admin').editable({  
+        source: [
+              {value: "true", text: 'Admin'},
+              {value: "false", text: 'User'}
+           ]
+    });
 });
+
+function showCheckinsPage(){
+	$("#checkins").show();
+	$("#settings").hide();
+	$("#users").hide();
+}
+
+function showSettingsPage(){
+	$("#checkins").hide();
+	$("#settings").show();
+	$("#users").hide();
+}
+
+function showUsersPage(){
+	$("#checkins").hide();
+	$("#settings").hide();
+	$("#users").show();
+}
+
+
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and 
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+        // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+        // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+    return query_string;
+}();

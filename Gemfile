@@ -21,6 +21,8 @@ gem 'therubyracer',  platforms: :ruby
 gem 'jquery-rails'
 # Use Toastr for notifications
 gem 'toastr-rails'
+# set up in-place editing
+gem 'bootstrap-editable-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
