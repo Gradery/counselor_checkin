@@ -10,6 +10,8 @@ set :repo_url, 'https://github.com/Gradery/counselor_checkin.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/counselor_checkin'
 
+set :passenger_in_gemfile, true
+
 # Default value for :scm is :git
 # set :scm, :git
 
