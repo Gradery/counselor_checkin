@@ -8,9 +8,7 @@ set :repo_url, 'https://github.com/Gradery/counselor_checkin.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/var/www/counselor_checkin'
-
-set :passenger_in_gemfile, true
+set :deploy_to, '/var/www'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -36,6 +34,12 @@ set :passenger_in_gemfile, true
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :rvm_ruby_version, '2.2.1'
+set :rails_env, 'production'
+set :normalize_asset_timestamps, %{public/images public/javascripts public/stylesheets}
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+
 namespace :deploy do
 
   after :restart, :clear_cache do
@@ -44,11 +48,6 @@ namespace :deploy do
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-      	set :rvm_ruby_version, '2.2.1'
-		set :rails_env, 'production'
-		set :normalize_asset_timestamps, %{public/images public/javascripts public/stylesheets}
-		set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
-		set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
     end
   end
 

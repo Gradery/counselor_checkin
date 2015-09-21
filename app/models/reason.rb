@@ -13,4 +13,8 @@ class Reason < ActiveRecord::Base
 	validates :school, :text, presence: true, allow_nil: false, allow_blank: false
 
 	belongs_to :school
+
+	def name
+		text
+	end
 end
