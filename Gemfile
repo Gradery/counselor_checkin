@@ -51,6 +51,11 @@ gem 'annotate'
 group :development do
 	# Guard runs rspec on file changes
 	gem 'guard-rspec', require: false
+	gem 'capistrano', '~> 3.4.0'
+	gem 'capistrano-rvm'
+	gem 'capistrano-bundler', '~> 1.1.2'
+	gem 'capistrano-rails', '~> 1.1'
+	gem 'capistrano-passenger'
 end
 
 group :development, :test do
