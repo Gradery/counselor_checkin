@@ -17,7 +17,7 @@
 #  updated_at             :datetime         not null
 #  name                   :string(255)
 #  is_admin               :boolean
-#  school_id              :string(255)
+#  school_id              :integer
 #  honorific              :string(255)
 #
 
