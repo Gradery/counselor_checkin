@@ -19,9 +19,13 @@ class PagesController < ApplicationController
 			render status: 404
 		else
 			authenticate_user!
-			@checkins = Checkin.where(:school => @school).order("created_at desc").all
-			@users = User.where(:school => @school).all
-			@reasons = Reason.where(:school => @school).all
+			if current_user.school == @school
+				@checkins = Checkin.where(:school => @school).order("created_at desc").all
+				@users = User.where(:school => @school).all
+				@reasons = Reason.where(:school => @school).all
+			else
+				render text: "<html><body><h1>Not Allowed!</h1></body></html>",status: 400
+			end
 		end
 	end
 
