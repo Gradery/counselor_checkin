@@ -1,5 +1,5 @@
 ActiveAdmin.register School do
-  permit_params :name, :is_student, :badge_id, :child_name, :user_id, :custom_reason, :reason_id, :reason_text, :school_id
+  permit_params :name, :url
 
   index do
     selectable_column
