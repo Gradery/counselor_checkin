@@ -95,12 +95,12 @@
               <% end %>
             </td>
             <td>
-              <% if current_user.id != user.id %>
                 <a href="#" id="title_<%= user.id%>" class="editable" data-type="text" data-url="/api/users/<%= user.id %>" data-title="Select Title" data-resource="user" data-name="email"><%= user.email %></a>
-              <% end %>
             </td>
             <td>
-              <button class="btn btn-danger delete_user pull-right" id="delete_<%= user.id %>">X</button>
+              <% if current_user.id != user.id %>
+                <button class="btn btn-danger delete_user pull-right" id="delete_<%= user.id %>">X</button>
+              <% end %>
             </td>
           </tr>
         <% end %>
