@@ -31,7 +31,7 @@
 	        <% if !@school.nil? %>
 	        	<li><a href="/<%= @school.url %>">Checkin</a></li>
 	        <% end %>
-	        <% if !@school.nil? && @school == current_user.school %>
+	        <% if !@school.nil? && !current_user.nil? && @school == current_user.school %>
 	        	<li><a href="/<%= @school.url %>/admin">Admin</a></li>
 	        <% end %>
 	        <% if current_user.nil? %>
