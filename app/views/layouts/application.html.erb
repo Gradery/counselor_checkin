@@ -35,7 +35,7 @@
 	        	<li><a href="/<%= @school.url %>/admin">Admin</a></li>
 	        <% end %>
 	        <% if current_user.nil? %>
-	        	<li><a href="/admin">Login</a>
+	        	<li><a href="/users/sign_in">Login</a>
 	       	<% else %>
 	        	<li><a href="/users/edit">My Profile</a>
 	        <% end %>
