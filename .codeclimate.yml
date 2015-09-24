@@ -47,6 +47,7 @@ ratings:
 # exclude_paths key.
 
 exclude_paths:
-- app/admin/**
+  paths:
+  - app/admin/*
 #- spec/**/*
 #- vendor/**/*
