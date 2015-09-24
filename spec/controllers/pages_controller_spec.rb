@@ -48,9 +48,6 @@ RSpec.describe PagesController do
       school.save!
       sign_in user
 
-      ap user.school
-      ap school
-
       get :admin, :school => school.url
       expect(response.status).to eq(400)
     end

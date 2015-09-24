@@ -116,7 +116,7 @@ class ApiController < ApplicationController
 		if @user.update_attributes(user_params)
 	        render text: "",status: 204
 	    else
-	      	render json: @reason.errors, status: :unprocessable_entity
+	      	render json: @user.errors.messages, status: :unprocessable_entity
 		end
 	end
 
