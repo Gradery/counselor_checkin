@@ -19,7 +19,7 @@ class PagesController < ApplicationController
 			render status: 404
 		else
 			authenticate_user!
-			if current_user.school == @school
+			if current_user.school.id == @school.id
 				@checkins = Checkin.where(:school => @school).order("created_at desc").all
 				@users = User.where(:school => @school).all
 				@reasons = Reason.where(:school => @school).all

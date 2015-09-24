@@ -37,7 +37,7 @@ set :deploy_to, '/var/www'
 set :rvm_ruby_version, '2.2.1'
 set :rails_env, 'production'
 set :normalize_asset_timestamps, %{public/images public/javascripts public/stylesheets}
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads', 'public/system')
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
 namespace :deploy do

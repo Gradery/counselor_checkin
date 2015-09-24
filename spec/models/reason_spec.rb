@@ -34,4 +34,9 @@ RSpec.describe Reason, type: :model do
   	r = FactoryGirl.create(:reason)
   	expect(r.valid?).to eq true
   end
+
+  it "will return the text as the name field" do
+    r = FactoryGirl.create(:reason)
+    expect(r.name).to eq r.text
+  end
 end

@@ -1,5 +1,7 @@
 require "rails_helper"
 
+include Devise::TestHelpers
+
 RSpec.describe ApiController do
 	before(:each) do
 	    @s = FactoryGirl.create(:school)
