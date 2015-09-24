@@ -109,12 +109,12 @@ RSpec.describe ApiController do
 		end
 
 		it "saves user if valid params and user is not admin" do
-			post :add_user, :school => @user.school.url, :email => "something@test.com", :name => "name", :honorific => "Mr.", :is_admin => false
+			post :add_user, :school => @user.school.url, :email => "something@test.com", :name => "name", :honorific => "Mr.", :is_admin => "false"
 			expect(response.status).to eq(200)
 		end
 
 		it "saves user if valid params and user is admin" do
-			post :add_user, :school => @user.school.url, :email => "something2@test.com", :name => "name", :honorific => "Mr.", :is_admin => true
+			post :add_user, :school => @user.school.url, :email => "something2@test.com", :name => "name", :honorific => "Mr.", :is_admin => "true"
 			expect(response.status).to eq(200)
 		end
 
@@ -154,8 +154,10 @@ RSpec.describe ApiController do
 
 		it "will destoy a user successfully" do
 			u = FactoryGirl.create(:user)
+			u.school = @user.school
+			u.save
 			post :delete_user, :id => u.id
-			expect(response.body).to eq("{\"error\":\"You can't delete yourself!\"}")
+			expect(response.status).to eq(200)
 		end
 	end
 end
