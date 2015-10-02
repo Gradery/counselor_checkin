@@ -20,7 +20,7 @@
 
 FactoryGirl.define do
   factory :checkin do
-    name "MyString"
+    name { Faker::Name.name }
     is_student false
     badge_id "MyString"
     child_name "MyString"
