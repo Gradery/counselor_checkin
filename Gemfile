@@ -48,6 +48,13 @@ gem "awesome_print"
 # annotate puts comments on the schema of the models
 gem 'annotate'
 
+# Gems for Loggly
+gem 'syslogger', '~> 1.6.0'
+gem 'lograge', '~> 0.3.1'
+
+# Rollbar for Exception management
+gem 'rollbar', '~> 2.2.1'
+
 group :development do
 	# Guard runs rspec on file changes
 	gem 'guard-rspec', require: false
