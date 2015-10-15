@@ -160,10 +160,6 @@ GEM
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    lograge (0.3.4)
-      actionpack (>= 3)
-      activesupport (>= 3)
-      railties (>= 3)
     lumberjack (1.0.9)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -284,7 +280,6 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    syslogger (1.6.4)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -329,7 +324,6 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
-  lograge (~> 0.3.1)
   paperclip
   paranoia (~> 2.0)
   passenger
@@ -341,7 +335,6 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   sqlite3
-  syslogger (~> 1.6.0)
   therubyracer
   toastr-rails
   turbolinks

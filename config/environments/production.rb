@@ -81,7 +81,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # # use syslog for log handling.
+  # use syslog for log handling.
   # require 'syslogger'
   # config.logger = Syslogger.new("counselor_checkin",Syslog::LOG_PID, Syslog::LOG_LOCAL7)
   # config.lograge.enabled = true
