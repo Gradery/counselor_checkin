@@ -61,16 +61,15 @@ class ApiController < ApplicationController
 		authenticate_user!
 		@reason = Reason.find(params[:id])
 
-		if params["reason"].nil? # case that whatever we are emptying is empty
-			params['reason'] = {
-				'user_ids' => []
-			}
-		end
-
-		if @reason.update_attributes(reason_params)
-	        render text: "",status: 204
-	    else
-	      	render json: @reason.errors, status: :unprocessable_entity
+		if !params["reason"].nil? 
+			if @reason.update_attributes(reason_params)
+		        render text: "",status: 204
+		    else
+		      	render json: @reason.errors, status: :unprocessable_entity
+			end
+		else # remove all the ReasonUsers for this reason
+			ReasonsUsers.where(:reason => @reason).destroy_all
+			render text: "",status: 204
 		end
 	end
 
@@ -119,16 +118,15 @@ class ApiController < ApplicationController
 		authenticate_user!
 		@user = User.find(params[:id])
 		
-		if params["user"].nil? # case that whatever we are emptying is empty
-			params['user'] = {
-				'reason_ids' => []
-			}
-		end
-
-		if @user.update_attributes(user_params)
-	        render text: "",status: 204
-	    else
-	      	render json: @user.errors.messages, status: :unprocessable_entity
+		if !params["user"].nil? # case that whatever we are emptying is empty
+			if @user.update_attributes(user_params)
+		        render text: "",status: 204
+		    else
+		      	render json: @user.errors.messages, status: :unprocessable_entity
+			end
+		else
+			ReasonsUsers.where(:user => @user).destroy_all
+			render text: "",status: 204
 		end
 	end
 
