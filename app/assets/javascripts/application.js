@@ -51,6 +51,30 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#visiting").change(function(){
+		var val = $("#visiting").val();
+		$("#aboutWrapper").hide();
+		//get the reasons of that user
+		$.get("/api/users/"+val+"/reasons")
+		.success(function(data){
+			console.log(data);
+			//populate the about entry
+			html = "<option value=''></option>";
+
+			for(var i = 0; i < data.length; i++)
+			{
+				html += "<option value='"+data[i].id+"'>"+data[i].text+"</option>";
+			}
+			html += "<option value='other'>Other</option>";
+			$("#reason").val("");
+			$("#reason").html(html);
+			$("#aboutWrapper").show();
+		})
+		.error(function(error){
+			console.log(error);
+		});
+	});
+
 	//handle submit
 	$("#checkin-submit").click(function(){
 		//check that all values are filled out

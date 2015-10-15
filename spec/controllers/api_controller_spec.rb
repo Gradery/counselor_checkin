@@ -83,6 +83,23 @@ RSpec.describe ApiController do
 			put :update_reason, :id => r.id, :reason => {:text => "asdfasdfsd"}
 			expect(response.status).to eq(204)
 		end
+
+		it "has HTTP status 204 even if attribute is not sent" do
+			r = FactoryGirl.create(:reason)
+			put :update_reason, :id => r.id
+			expect(response.status).to eq(204)
+		end
+
+		it "removes all users attached to the reason if attribute is not sent" do
+			r = FactoryGirl.create(:reason)
+			r.users.push(@user)
+			r.save!
+			expect(r.users.count).to eq 1
+			put :update_reason, :id => r.id
+			expect(response.status).to eq(204)
+			a = Reason.find(r.id)
+			expect(a.users.count).to eq 0
+		end
 	end
 
 	describe "POST /api/reasons/:id/delete" do
@@ -144,6 +161,22 @@ RSpec.describe ApiController do
 			put :update_user, :id => @user.id, :user => {:email => "tesdsdfsf"}
 			expect(response.status).to eq(422)
 		end
+
+		it "has HTTP status 204 even if attribute is not sent" do
+			put :update_user, :id => @user.id
+			expect(response.status).to eq(204)
+		end
+
+		it "removes all users attached to the reason if attribute is not sent" do
+			r = FactoryGirl.create(:reason)
+			r.users.push(@user)
+			r.save!
+			expect(r.users.count).to eq 1
+			put :update_user, :id => @user.id
+			expect(response.status).to eq(204)
+			a = Reason.find(r.id)
+			expect(a.users.count).to eq 0
+		end
 	end
 
 	describe "POST /api/users/:id/delete" do
@@ -158,6 +191,21 @@ RSpec.describe ApiController do
 			u.save
 			post :delete_user, :id => u.id
 			expect(response.status).to eq(200)
+		end
+	end
+
+	describe "GET /api/users/:id/reasons" do
+		it "has HTTP status 404 if user not found" do
+			post :get_user_reasons, :id => 10000
+			expect(response.status).to eq(404)
+		end
+
+		it "returns the user's reason if user is found" do
+			r = FactoryGirl.create(:reason, :school_id => @s.id)
+			@user.reasons.push(r)
+			@user.save!
+			post :get_user_reasons, :id => @user.id
+			expect(response.body).to eq [r].to_json
 		end
 	end
 end

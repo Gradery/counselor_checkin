@@ -61,6 +61,12 @@ class ApiController < ApplicationController
 		authenticate_user!
 		@reason = Reason.find(params[:id])
 
+		if params["reason"].nil? # case that whatever we are emptying is empty
+			params['reason'] = {
+				'user_ids' => []
+			}
+		end
+
 		if @reason.update_attributes(reason_params)
 	        render text: "",status: 204
 	    else
@@ -112,6 +118,12 @@ class ApiController < ApplicationController
 	def update_user
 		authenticate_user!
 		@user = User.find(params[:id])
+		
+		if params["user"].nil? # case that whatever we are emptying is empty
+			params['user'] = {
+				'reason_ids' => []
+			}
+		end
 
 		if @user.update_attributes(user_params)
 	        render text: "",status: 204
@@ -134,14 +146,23 @@ class ApiController < ApplicationController
 		end
 	end
 
+	def get_user_reasons
+		if User.where(:id => params['id']).exists?
+			user = User.find(params['id'])
+			render json: user.reasons
+		else
+			render json: {error: "User not found"}, status: 404
+		end
+	end
+
 	private
 
 	def reason_params
-	    params.require(:reason).permit(:text)
+	    params.require(:reason).permit(:text, :user_ids => [])
 	end
 
 	def user_params
-	    params.require(:user).permit(:honorific, :name, :is_admin, :email)
+	    params.require(:user).permit(:honorific, :name, :is_admin, :email, :reason_ids => [])
 	end
 
 	def get_school

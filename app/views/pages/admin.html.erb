@@ -48,12 +48,16 @@
     <table class="table table-striped">
       <thead>
         <th>Text</th>
+        <th>Users</th>
         <th></th>
       </thead>
       <tbody>
         <% @reasons.each do |reason| %>
           <tr>
-            <td><a href="#" id="text_<%= reason.id %>" class="editable" data-type="textarea" data-resource="reason" data-name="textarea" data-url="/api/reasons/<%= reason.id %>" data-original-title="Enter Reason Text"><%= reason.text %></a></td>
+            <td><a href="#" id="text_<%= reason.id %>" class="editable" data-type="textarea" data-resource="reason" data-name="text" data-url="/api/reasons/<%= reason.id %>" data-original-title="Enter Reason Text"><%= reason.text %></a></td>
+            <td>
+              <a href="#" id="users_<%= reason.id%>" class="editable" data-type="checklist" data-url="/api/reasons/<%= reason.id %>" data-title="Select Users" data-resource="reason" data-name="user_ids" data-source="<%= @users.map{|a| {"value" => a.id, "text" => a.name}}.to_json %>" data-value="[<%= reason.users.map{|a|a.id}.join(",") %>]"><%= reason.users.map{|a|a.name}.join("<br/>").html_safe %></a>
+            </td>
             <td>
               <button class="btn btn-danger delete_reason pull-right" id="delete_<%= reason.id %>">X</button>
             </td>
@@ -77,6 +81,7 @@
         <th>Name</th>
         <th>Role</th>
         <th>Email</th>
+        <th>Reasons For Visiting</th>
         <th></th>
       </thead>
       <tbody>
@@ -93,6 +98,9 @@
             </td>
             <td>
                 <a href="#" id="title_<%= user.id%>" class="editable" data-type="text" data-url="/api/users/<%= user.id %>" data-title="Select Title" data-resource="user" data-name="email"><%= user.email %></a>
+            </td>
+            <td>
+              <a href="#" id="reasons_<%= user.id%>" class="editable" data-type="checklist" data-url="/api/users/<%= user.id %>" data-title="Select Reasons" data-resource="user" data-name="reason_ids" data-source="<%= @reasons.map{|a| {"value" => a.id, "text" => a.text}}.to_json %>" data-value="[<%= user.reasons.map{|a|a.id}.join(",") %>]"><%= user.reasons.map{|a|a.text}.join("<br/>").html_safe %></a>
             </td>
             <td>
               <% if current_user.id != user.id %>
@@ -123,6 +131,8 @@
           </td>
           <td>
             <input type="email" placeholder = "Email" id="email" class="form-control" />
+          </td>
+          <td>
           </td>
           <td>
             <button class="btn btn-primary pull-right" id="new_user">Add User</button>
