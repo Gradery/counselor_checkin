@@ -77,7 +77,7 @@ class ApiController < ApplicationController
 	def delete_reason
 		authenticate_user!
 		@reason = Reason.find(params[:id])
-		if @reason.destroy
+		if @reason.delete
 			render json: {success: true}
 		else
 			render json:{error: "Could not delete record"}, status: 400
@@ -136,7 +136,7 @@ class ApiController < ApplicationController
 		authenticate_user!
 		@user = User.find(params[:id])
 		if @user != current_user && @user.school == current_user.school
-			if @user.destroy
+			if @user.delete
 				render json: {success: true}
 			else
 				render json:{error: "Could not delete record"}, status: 400

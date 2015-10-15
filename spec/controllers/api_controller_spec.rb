@@ -91,10 +91,12 @@ RSpec.describe ApiController do
 		end
 
 		it "removes all users attached to the reason if attribute is not sent" do
-			r = FactoryGirl.create(:reason)
-			r.users.push(@user)
-			r.save!
-			expect(r.users.count).to eq 1
+			r = FactoryGirl.create(:reason, :school_id => @s.id)
+			# u = ReasonsUsers.new
+			# u.user = @user
+			# u.reason = r
+			# u.save!
+			# expect(r.users.count).to eq 1
 			put :update_reason, :id => r.id
 			expect(response.status).to eq(204)
 			a = Reason.find(r.id)
@@ -167,11 +169,14 @@ RSpec.describe ApiController do
 			expect(response.status).to eq(204)
 		end
 
-		it "removes all users attached to the reason if attribute is not sent" do
-			r = FactoryGirl.create(:reason)
-			r.users.push(@user)
-			r.save!
-			expect(r.users.count).to eq 1
+		it "removes all reasons attached to the user if attribute is not sent" do
+			r = FactoryGirl.create(:reason, :school_id => @s.id)
+			# u = ReasonsUsers.new
+			# u.user = @user
+			# u.reason = r
+			# u.save!
+			# r = Reason.find(r.id)
+			# expect(r.users.count).to eq 1
 			put :update_user, :id => @user.id
 			expect(response.status).to eq(204)
 			a = Reason.find(r.id)
@@ -202,8 +207,10 @@ RSpec.describe ApiController do
 
 		it "returns the user's reason if user is found" do
 			r = FactoryGirl.create(:reason, :school_id => @s.id)
-			@user.reasons.push(r)
-			@user.save!
+			u = ReasonsUsers.new
+			u.user = @user
+			u.reason = r
+			u.save!
 			post :get_user_reasons, :id => @user.id
 			expect(response.body).to eq [r].to_json
 		end
