@@ -68,7 +68,7 @@ class ApiController < ApplicationController
 		      	render json: @reason.errors, status: :unprocessable_entity
 			end
 		else # remove all the ReasonUsers for this reason
-			ReasonsUsers.where(:reason => @reason).destroy_all
+			ReasonUser.where(:reason => @reason).destroy_all
 			render text: "",status: 204
 		end
 	end
@@ -125,7 +125,7 @@ class ApiController < ApplicationController
 		      	render json: @user.errors.messages, status: :unprocessable_entity
 			end
 		else
-			ReasonsUsers.where(:user => @user).destroy_all
+			ReasonUser.where(:user => @user).destroy_all
 			render text: "",status: 204
 		end
 	end

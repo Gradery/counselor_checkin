@@ -14,7 +14,8 @@ class Reason < ActiveRecord::Base
 
 	belongs_to :school
 
-   	has_and_belongs_to_many :users
+	has_many :reason_users
+   	has_many :users, through: :reason_users
 
 	def name
 		text

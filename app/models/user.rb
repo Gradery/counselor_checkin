@@ -31,5 +31,6 @@ class User < ActiveRecord::Base
    validates :school, :name, :honorific, presence: true, allow_nil: false, allow_blank: false
 
    has_many :checkins
-   has_and_belongs_to_many :reasons
+   has_many :reason_users
+   has_many :reasons, through: :reason_users
 end

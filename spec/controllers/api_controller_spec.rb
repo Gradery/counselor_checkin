@@ -92,7 +92,7 @@ RSpec.describe ApiController do
 
 		it "removes all users attached to the reason if attribute is not sent" do
 			r = FactoryGirl.create(:reason, :school_id => @s.id)
-			u = ReasonsUsers.new
+			u = ReasonUser.new
 			u.user = @user
 			u.reason = r
 			u.save!
@@ -171,7 +171,7 @@ RSpec.describe ApiController do
 
 		it "removes all reasons attached to the user if attribute is not sent" do
 			r = FactoryGirl.create(:reason, :school_id => @s.id)
-			u = ReasonsUsers.new
+			u = ReasonUser.new
 			u.user = @user
 			u.reason = r
 			u.save!
@@ -207,7 +207,7 @@ RSpec.describe ApiController do
 
 		it "returns the user's reason if user is found" do
 			r = FactoryGirl.create(:reason, :school_id => @s.id)
-			u = ReasonsUsers.new
+			u = ReasonUser.new
 			u.user = @user
 			u.reason = r
 			u.save!

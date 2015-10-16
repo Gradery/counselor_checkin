@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users_reasons
+# Table name: reasons_users
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -9,7 +9,10 @@
 #  updated_at :datetime
 #
 
-class ReasonsUsers < ActiveRecord::Base
+class ReasonUser < ActiveRecord::Base
+
+	self.table_name =  "reasons_users"
+
 	belongs_to :user
 	belongs_to :reason
 end
