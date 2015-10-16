@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
 	protect_from_forgery with: :null_session
-	before_action :authenticate_user!, :except => :add_checkin
+	before_action :authenticate_user!, :except => [:add_checkin, :get_user_reasons]
 
 	def add_checkin
 		# check for missing params
