@@ -82,8 +82,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # use syslog for log handling.
-  # require 'syslogger'
-  # config.logger = Syslogger.new("counselor_checkin",Syslog::LOG_PID, Syslog::LOG_LOCAL7)
-  # config.lograge.enabled = true
-  # config.lograge.formatter = Lograge::Formatters::Json.new
+  require 'syslogger'
+  config.logger = Syslogger.new("counselor_checkin",Syslog::LOG_PID, Syslog::LOG_LOCAL7)
+  config.lograge.enabled = true
+  config.lograge.formatter = Lograge::Formatters::Json.new
 end

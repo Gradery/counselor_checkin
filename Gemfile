@@ -49,8 +49,8 @@ gem "awesome_print"
 gem 'annotate'
 
 # Gems for Loggly
-# gem 'syslogger', '~> 1.6.0'
-# gem 'lograge', '~> 0.3.1'
+gem 'syslogger', '~> 1.6.0'
+gem 'lograge', '~> 0.3.1'
 
 # Rollbar for Exception management
 gem 'rollbar', '~> 2.2.1'
