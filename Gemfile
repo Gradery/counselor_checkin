@@ -53,7 +53,7 @@ gem 'syslogger', '~> 1.6.0'
 gem 'lograge', '~> 0.3.1'
 
 # Rollbar for Exception management
-gem 'rollbar', '~> 2.2.1'
+gem 'rollbar'
 
 group :development do
 	# Guard runs rspec on file changes
